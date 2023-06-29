@@ -1,0 +1,35 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Student_name {
+  id       Int    @id @default(autoincrement())
+  Frist_Name String @unique
+  Last_Name String @unique
+  Classrooms Classroom @relation(fields: [classroomId], references: [id], onDelete: Cascade)
+  classroomId Int
+  Clubs Club[]
+}
+
+model Classroom {
+  id  Int @id @default(autoincrement())
+  Std_Name String 
+  Room String @unique
+  Students Student_name[]
+}
+
+
+model Club {
+  id  Int @id @default(autoincrement())
+  Club_name String @unique
+Students Student_name[]
+
+}
